@@ -1,0 +1,130 @@
+
+<!-- Modal -->
+<div class="modal fade bs-modal-sm" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-body">
+				<button type="button" class="close" ng-click="hide()">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<div style="margin-bottom: 20px;">
+					<div style="display: inline-block; width: 50px; vertical-align: top; color: #888;">
+						<h4>
+							<i class="fa fa-newspaper-o fa-lg"></i>
+						</h4>
+					</div>
+					<div ng-show="!isEditCaption" style="display: inline-block; vertical-align: top; width: 480px;">
+						<h4 style="display: inline-block;">
+							<strong ng-click="editCaption();" style="cursor: pointer; white-space: pre-line;">{{dialogTask.content}}</strong> <br /> <small><a href="{{getTaskUrl()}}"
+								target="_blank"> <!-- 							<img src="http://developer.teamwork.com/favicon.ico"/> --> See on Teamwork.com
+							</a></small>
+						</h4>
+					</div>
+					<div ng-show="isEditCaption" style="display: inline-block; width: 480px;">
+						<div style="margin-bottom: 10px;">						
+							<textarea class="form-control" rows="2" ng-model="dialogTask.content" submit-by-enter="saveCaption(dialogTask)"></textarea>
+						</div>
+						<div style="margin: 5px 0;">
+							<button class="btn btn-success" ng-click="saveCaption(dialogTask)" style="width: 80px; margin-right: 20px;">Save</button>
+							<button class="btn btn-default" ng-click="closeEditCaption()" style="width: 80px;">Cancel</button>
+						</div>
+					</div>
+
+					<div>
+					<div class="checkbox checkbox-primary" style="margin-left: 50px; display: inline-block;" >
+						<input type="checkbox" id="taskCompletedCheck" ng-model="dialogTask.completed" ng-change="taskCompleteChanged()"> <label for="taskCompletedCheck">
+							<span ng-show="!dialogTask.completed">Mark task as completed</span><span ng-show="dialogTask.completed">Task completed</span>
+						</label>
+					</div>
+					
+					<div class="control-group pull-right" style="display: inline-block; margin-left: 20px;">
+					<span style="margin-left: 10px">Due date</span>
+						<input class="date-picker form-control" type="text" ng-model="dialogTask['due-date']"
+							name="due-date" id="due-date" datepicker style="width: 150px; display: inline;" ng-change="saveDueDate(dialogTask)"></input>
+					</div>
+					</div>
+					
+					<hr />
+
+					<div style="margin-left: 50px;">
+						<h6 style="color: #888;">
+							Description <a ng-click="editDescription();">Edit...</a>
+						</h6>
+						<h5 ng-show="!isEditDescription">{{dialogTask.description}}</h5>
+						<div ng-show="isEditDescription">
+							<div style="margin-bottom: 10px;">
+								<textarea class="form-control" rows="3" ng-model="dialogTask.description" submit-by-enter="saveDescription(dialogTask)"></textarea>
+							</div>
+							<div style="margin: 5px 0;">
+								<button class="btn btn-success" ng-click="saveDescription(dialogTask)" style="width: 80px; margin-right: 20px;">Save</button>
+								<button class="btn btn-default" ng-click="closeEditDescription()" style="width: 80px;">Cancel</button>
+							</div>
+						</div>
+					</div>
+					<hr />
+				</div>
+				<div>
+					<div style="display: inline-block; width: 50px; vertical-align: top; color: #888;">
+						<h4>
+							<i class="fa fa-check-square-o fa-lg"></i>
+						</h4>
+					</div>
+					<div style="display: inline-block; vertical-align: top;">
+						<h4>
+							<strong>Check list</strong>
+						</h4>
+					</div>
+				</div>
+
+				<div style="margin-left: 50px;">
+					<div class="progress" ng-show="dialogTask.subTasks.length">
+						<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{dialogTask.progress+'%'}}"></div>
+					</div>
+					<ul class="task-container" sortable="true">
+					<li ng-repeat="check in dialogTask.subTasks" class="checkbox" task-id="{{check.id}}">
+							<input type="checkbox" id="checkbox{{$index}}" ng-model="check.state" ng-change="checkChanged(check)"> <label for="checkbox{{$index}}"
+								style="width: 100%; position: relative;">
+								<div class="check-content" ng-show="subEditId!=$index">{{check.content}}</div>
+								<div ng-show="subEditId==$index" style="width: 100%;">
+									<div style="margin-bottom: 10px; width: 100%;">
+										<input class="form-control edit-tool" type="text" ng-model="check.content" submit-by-enter="updateCheck(check)"/>
+									</div>
+									<div class="edit-tool">
+										<button class="btn btn-success" ng-click="updateCheck(check)" style="width: 80px; margin-right: 20px;">
+											Save <span ng-show="addingSubTask"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+										</button>
+										<button class="btn btn-default" ng-click="closeCheckEdit()" style="width: 80px;">Cancel</button>
+									</div>
+								</div>
+							</label>
+							<div class="check-tool">
+								<span ng-show="subEditId!=$index" ng-click="editCheck($index, check);$event.stopPropagation();"> <i class="fa fa-wrench" /> Edit...
+								</span> <span ng-show="subEditId!=$index" ng-click="removeCheck($index, check);$event.stopPropagation();"> <i class="fa fa-times" /> Remove...
+								</span>
+							</div>
+						
+						
+						</li>
+					</ul>
+					<form>
+						<div style="margin-right: 20px;">
+							<input class="form-control" placeholder="Add an item..." type="text" ng-model="subCaption" ng-focus="openAddSub()" ng-click="openAddSub()"
+								ng-blur="closeAddSub(false)" />
+						</div>
+						<div ng-show="isAddSub" style="margin: 5px 0; margin-right: 20px;">
+							<button class="btn btn-success" type="submit" ng-click="addSub(dialogTask)" style="width: 80px; margin-right: 20px;">
+								Save <span ng-show="addingSubTask"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+							</button>
+							<button class="btn btn-default" ng-click="closeAddSub(true)" style="width: 80px;">Cancel</button>
+						</div>
+					</form>
+
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+</div>
+</div>

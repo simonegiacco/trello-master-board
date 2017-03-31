@@ -1,0 +1,347 @@
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	padding-top: 50px;
+	/* Margin bottom by footer height */
+	margin-bottom: 60px;
+}
+
+.main{
+	margin: 0 30px;
+}
+
+a {
+	cursor: pointer;
+	cursor: hand;
+}
+
+.begin-template {
+	padding: 40px 15px;
+	text-align: center;
+}
+
+code {
+	font-size: 80%;
+}
+
+.ng-invalid.ng-dirty {
+	border-color: #FA787E;
+}
+
+.ng-valid.ng-dirty {
+	border-color: #78FA89;
+}
+
+.hoverable {
+	cursor: pointer;
+}
+
+.hoverable:hover {
+	background-color: #f1f1f1;
+}
+
+.panel-sh {
+	border: none;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.shadow-sm {	
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 1);
+}
+
+.panel-heading {
+	cursor: pointer;
+}
+
+.left-bar {
+	margin-right: 30px;
+}
+
+.project-list {
+	display: block;
+	padding-left: 0;
+	text-align: left;
+}
+
+.project-list li {
+	display: inline-block;
+	width: 250px;
+	margin: 30px;
+}
+
+.project-list li>div {
+	color: #f5f5f5;
+	cursor: pointer;
+	border-radius: 5px;
+	background-color: #1D70B6;
+	padding: 2px 20px;
+}
+
+.project-list li>div:hover {
+	background-color: #005096;
+}
+
+.project-list li>div:hover>div.footer {
+	border-top-color: #003076;
+}
+
+.project-list li>div>div.footer {
+	border-top-color: #005096;
+	border-top-style: solid;
+	border-top-width: 1px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	width: 100%;
+}
+
+.project-list li>div>div.project-description {
+	min-height: 100px;
+}
+
+.menu-overlay {
+	display:none;
+	z-index: 10;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	color: #aaa;
+	overflow: hidden;
+	width: 35px;
+	border-color:#aaa;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 3px;
+	padding:5px;
+	background-color: #000;
+}
+
+.menu-overlay>span>i{
+	margin-top: 5px;
+	margin-bottom: 15px;
+	padding-left: 2px;
+}
+.project-list li>div:hover>div.menu-overlay{
+	display:block;
+}
+.menu-overlay>span:hover{
+	cursor: pointer;
+	color: #fff;	
+}
+.ui-widget{	
+	font-size: 14px;	
+}
+
+.tab-pane{
+	margin-top: 20px;
+}
+
+.mat-nav>li>a {
+	margin-left: 10px;
+	margin-right: 10px;
+	color: #000;
+	border-style:none;
+}
+
+.mat-nav>li.active>a, .mat-nav>li>a:hover, .mat-nav>li>a:focus,.mat-nav>li.active>a:hover, .mat-nav>li.active>a:focus {
+	color: #000;
+	background-color: transparent;
+	border-style:none;
+	border-bottom-color: #1D70B6;
+	border-bottom-style: solid;
+	border-bottom-width: 3px;
+	border-radius: 0;
+}
+
+.mat-nav>li.active>a:hover, .mat-nav>li.active>a:focus {	
+	color: #000;
+	background-color: transparent;
+}
+
+.mat-content{
+	border-style:solid;
+	border-color: #ccc;
+	border-width: 1px;
+	background-color: #f1f1f1;
+	padding: 20px;
+	border-radius: 3px;
+}
+
+.task-list {
+	display: block;
+	padding-left: 0;
+	text-align: left;
+	display: -webkit-flex;
+    -webkit-flex-direction: row;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    -webkit-box-align: start;
+    list-style-type: none;
+}
+
+.task-list>li{
+	margin: 20px;
+	flex: 0 0 250px;	
+}
+
+.task-list>li>div.list-item {
+	border-radius: 5px;
+	color: #f5f5f5;
+	background-color: #6a80a9;
+	padding: 2px 10px;
+	width: 250px;
+}
+
+.task-list .list-head{
+	border-bottom-color: #567;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	min-height: 30px;
+	line-height: 30px;	
+	font-weight: bold;
+	margin-bottom:5px;	
+}
+
+.list-head .list-caption{
+	cursor:pointer;
+}
+
+.task-list .add-action{
+	margin-top:5px; 
+	cursor:pointer;
+	color: #ccc;
+	padding:0 20px;
+	height: 30px;
+	line-height: 30px;
+	border-top-color: #567;
+	border-top-style: solid;
+	border-top-width: 1px;
+	text-decoration: none;
+}
+
+.task-list .add-action:hover,.task-list .add-action:focus{
+	color: #eee;
+	text-decoration: underline;
+}
+
+.add-list-action{
+	background-color: #6a80a9;
+	border-color: #ddd;
+	border-style: solid;
+	border-width: 1px;
+	cursor:pointer;
+	color: #ccc;
+	height: 40px;
+	line-height: 40px;	
+	border-radius: 5px;
+	padding: 0 20px;
+	width: 250px;
+	text-decoration: none;
+}
+
+.add-list-action:hover, .add-list-action:focus{
+	text-decoration: underline;
+	color: #eee;		
+}
+
+.task{
+	color: #111;
+	background-color: #f5f5f5;
+	margin: 7px 0;
+	border-radius: 3px;
+	padding:  10px;
+	padding-right: 20px;
+	border-color: #aaa;
+	border-style: solid;
+	border-width: 1px;
+	cursor: pointer;	
+	vertical-align: middle;
+	word-wrap: break-word;
+}
+
+
+.task:hover, .task:focus{
+	color: #000;
+	background-color: #ccc;
+}
+
+.task>.close{
+	display: none;
+}
+
+.task-red{
+	background-color: red;
+}
+
+.task-orange{
+	background-color: orange;
+}
+
+.task-dark-orange{
+	background-color: #f50;
+}
+
+.task-light-orange{
+	background-color: #fea;
+}
+
+
+
+.task:hover>.close, .task:focus>.close{
+	display: block;
+
+	}
+	
+.checkbox input[type=checkbox]:checked + label>.check-content{
+	text-decoration:line-through;
+	color: #888;
+	font-style: italic;
+}
+
+.checkbox label:after {
+	color: #888;
+}
+
+.check-tool{
+	cursor: pointer;
+	color:#555;
+	background-color: #ddd;
+	margin-left: 15px;
+	display: none;
+	position: absolute;
+	top:0;
+	right:0;
+	border-color:#aaa;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 3px;	
+}
+
+.check-tool>span{
+	margin: 5px 10px;
+}
+
+.checkbox:hover>.check-tool, .checkbox:focus>.check-tool{
+	display: inline;
+} 
+
+.edit-tool{
+	margin: 5px 0;
+	text-decoration: none!important;
+	font-style:normal;
+}
+
+.task-completed{
+	background-color: #f5f5f5;
+	opacity: 0.7;
+}
+
+.task-container {
+	display: block;
+	padding-left: 0;
+	text-align: left;
+    list-style-type: none;
+}

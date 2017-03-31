@@ -1,0 +1,14 @@
+<div style="margin-bottom: 25px">
+	<h4 class="text-rabe-head1">
+		<a ng-click="collapsed=!collapsed" id="panel-toggle"> 
+		<i ng-show="collapsed" class="fa fa-chevron-right"></i> 
+		<i ng-show="!collapsed" class="fa fa-chevron-down"></i>
+			{{headerTitle}}
+		</a>
+	</h4>
+	<div id="details">
+	<div ng-transclude></div>
+	</div>
+
+
+</div>

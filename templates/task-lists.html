@@ -1,0 +1,76 @@
+<div class="main">
+
+	<div class="row">
+		<div class="col-md-8">
+			<h2>{{project.name}}</h2>
+		</div>
+	</div>
+	<ul class="task-list">
+		<li ng-repeat="taskList in tasklists">
+			<div class="list-item panel-sh">
+				<div class="list-head">
+					<div ng-show="!isEditShown($index)">
+						<span class="list-caption" ng-click="openEdit($index)">{{taskList.name}}</span> <button type="button" ng-click="remove(taskList)"
+								class="close" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+					</div>
+					<div ng-show="isEditShown($index)">
+						<div style="margin-bottom: 10px;">
+							<input class="form-control" type="text" ng-model="taskList.name" style="margin: 5px 0; padding: 0px;" submit-by-enter="updateList(taskList)"/>
+						</div>
+						<div style="margin: 5px 0;">
+							<button class="btn btn-success" ng-click="updateList(taskList)" style="width: 80px; margin-right: 20px;">Save</button>
+							<button class="btn btn-default" ng-click="closeEdit()" style="width: 80px;">Cancel</button>
+						</div>
+					</div>
+				</div>
+				<ul class="task-container" sortable="true">
+				<li ng-repeat="task in taskList['todo-items']" ng-if="task.parentTaskId==''" task-id="{{task.id}}"><div class="{{task.dateHandler}}"  id="draggable" ng-class="{'task task-completed':task.completed, 'task':!task.completed}" style="position:relative" ng-click="showTaskDialog(task, $parent.$parent.$index)">
+					<span>{{task.content}}</span>
+					<div ng-show="task.description!=''" style="color:#888;font-size:10px; height: 14px; overflow:hidden; margin-top:10px;">{{task.description}}</div>
+					<div ng-repeat="subTask in task.predecessors" style="font-size:12px; height: 14px; overflow:hidden; margin-top:2px; margin-left: 10px;" ng-show="$index < 3">
+						-{{subTask.name}}
+					</div>
+					<div style="font-size:12px; height: 14px; overflow:hidden; margin-top:2px; margin-left: 10px;" ng-show="task.predecessors.length>3">
+						<a ng-click="showTaskDialog(task, $parent.$parent.$parent.$index)">-more...</a>
+					</div>
+					
+					<span style="padding: 5px;" ng-show="removingTaskId==task.id"><i class="fa fa-circle-o-notch fa-spin"></i></span>					
+					<button  style="position:absolute; top:2px; right: 5px;" type="button" ng-click="removeTask(task, $parent.$parent.$index);$event.stopPropagation()" class="close" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+				</div></li>
+				</ul>
+				<div style="margin-bottom: 10px;">
+					<input class="form-control" type="text" placeholder="Add new task..." ng-blur="closeNewTaskDialog(false)" ng-focus="showNewTaskDialog($index)" ng-model="$parent.newTaskName[$index]" style="margin: 5px 0; padding: 0px;" submit-by-enter="addTask(taskList, $index)" />
+				</div>				
+				<div ng-show="newTaskList==$index">
+					<div style="margin: 5px 0;">
+						<button class="btn btn-success" ng-click="addTask(taskList, $index)" style="width: 80px; margin-right: 10px;">Add <span ng-show="addingTask"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span></button>
+						<button class="btn btn-default" ng-click="closeNewTaskDialog(true, $index)" style="width: 80px;">Cancel</button>						
+					</div>
+				</div>
+
+			</div>
+		</li>
+		<li ng-show="loading" style="width: 40px; flex: 0 0 40px;"><span><i
+				class="fa fa-circle-o-notch fa-spin fa-2x text-primary"></i></span></li>
+		<li>
+<!-- 			<div class="add-list-action" ng-show="!newListShown" ng-click="showNewList()">Add a list...</div> -->
+			<div class="list-item panel-sh">
+				<form ng-submit="saveNewList()">
+				<div style="margin-bottom: 10px;">
+					<input class="form-control" type="text"  placeholder="Add new list..." ng-blur="hideNewList(false)" ng-focus="showNewList()" ng-model="newListName" style="margin: 5px 0" />
+				</div>			
+				<div style="margin: 5px 0;" ng-show="newListShown">
+					<button type="submit" class="btn btn-success" style="width: 80px; margin-right:10px;">Save</button>
+					<button class="btn btn-default" ng-click="hideNewList(true)" style="width: 80px; margin: 0 10px;">Cancel</button>
+				</div>
+				</form>
+			</div>
+		</li>
+	</ul>
+	
+	<task-dialog></task-dialog>
+</div>

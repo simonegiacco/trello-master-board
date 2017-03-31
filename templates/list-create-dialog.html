@@ -1,0 +1,94 @@
+
+<!-- Modal -->
+<div class="modal fade bs-modal-sm" id="listCreateModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 ng-show="!listNew.id">New list</h4>
+				<h4 ng-show="listNew.id">Edit list</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" name="listForm" ng-submit="listForm.$valid" novalidate>
+					<fieldset>
+						<div class="control-group">
+							<label class="control-label" for="userid">Name of the project</label>
+							<div class="controls">
+								<input id="name" name="name" type="text" class="form-control" placeholder="Packaging redesign, Sales and marketing, etc ..." ng-model="projectNew.name"
+									required />
+							</div>
+						</div>
+					</fieldset>
+					<div role="tabpanel" style="margin-top: 40px;">
+						<ul class="nav nav-pills mat-nav" role="tablist">
+							<li role="presentation" class="active"><a data-target="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+							<li role="presentation"><a data-target="#company" aria-controls="company" role="tab" data-toggle="tab">Company</a></li>
+							<li role="presentation"><a data-target="#features" aria-controls="features" role="tab" data-toggle="tab">Features</a></li>
+							<li role="presentation"><a data-target="#category" aria-controls="category" role="tab" data-toggle="tab">Category</a></li>
+							<li role="presentation"><a data-target="#dates" aria-controls="dates" role="tab" data-toggle="tab">Dates</a></li>
+						</ul>
+
+						<div class="tab-content mat-content">
+							<div role="tabpanel" class="tab-pane active" id="description">
+								<div class="control-group">
+									<label class="control-label" for="userid">Description (optional)</label>
+									<div class="controls">
+										<textarea id="description" name="description" type="text" class="form-control input-sm" placeholder="" rows="5" ng-model="projectNew.description" />
+									</div>
+								</div>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="company">
+								<div class="control-group">
+									<label class="control-label" for="userid">Company (optional)</label>
+									<div class="controls">
+										<select ng-options="company.id as company.name for company in companyList" id="companyId" name="companyId" class="form-control" placeholder=""
+											ng-model="projectNew.companyId">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="features">...</div>
+							<div role="tabpanel" class="tab-pane" id="category">
+								<div class="control-group">
+									<label class="control-label" for="categoryId">Category (optional)</label>
+									<div class="controls">
+										<select ng-options="category.id as category.name for category in categoryList" id="categoryId" name="categoryId" class="form-control" placeholder=""
+											ng-model="projectNew.categoryId">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="dates">
+								<ul>
+									<div class="control-group" style="display: inline; margin: 0 10px">
+										<label class="control-label" for="startDate">Start</label> <input class="date-picker form-control" type="text" ng-model="projectNew.startDate"
+											name="startDate" id="startDate" datepicker style="width: 150px; display: inline;"></input>
+									</div>
+									<div class="control-group" style="display: inline; margin: 0 30px">
+										<label class="control-label" for="endDate">End</label> <input class="date-picker form-control" type="text" ng-model="projectNew.endDate"
+											name="endDate" id="endDate" datepicker style="width: 150px; display: inline;"></input>
+									</div>
+								</ul>
+							</div>
+
+						</div>
+
+					</div>
+
+
+
+
+				</form>
+			</div>
+			<div class="modal-footer" style="text-align: left;">
+				<button class="btn btn-success" ng-click="saveProject()">
+					<span ng-show="!projectNew.id">Add project</span> <span ng-show="projectNew.id">Save project</span>
+
+				</button>
+				<button class="btn btn-default" ng-click="closeProjectDialog()">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
