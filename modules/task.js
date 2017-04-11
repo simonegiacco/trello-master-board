@@ -27,7 +27,7 @@
 			var dd = rawDate.substring(6,8);
 			var mm = rawDate.substring(4,6);
 			var yyyy = rawDate.substring(0,4);
-			return dd + '.' + mm + '.' + yyyy;
+			return yyyy + '.' + mm + '.' + dd;
 		};
 		
 		this.handleDate = function(strDate){

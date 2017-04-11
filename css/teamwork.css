@@ -345,3 +345,18 @@ code {
 	text-align: left;
     list-style-type: none;
 }
+
+.create-project {
+	float: right;	
+}
+.create-project h4 {
+	font-size: 14px;
+	color: #9d9d9d;
+	margin-top: -2px;
+}
+
+.create-project h4:hover{
+	text-decoration: none;
+	color: white;
+}
+

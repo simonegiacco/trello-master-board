@@ -1,80 +1,78 @@
 
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.4/css/bootstrap-select.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/0.3.3/awesome-bootstrap-checkbox.min.css">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>06Lab</title>
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Load Common Styles -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.4/css/bootstrap-select.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/0.3.3/awesome-bootstrap-checkbox.min.css">
+		<link href="js/jquery-ui-1.11.2/jquery-ui.min.css" rel="stylesheet" />
+
+		<!-- Load Custom Styles -->
+		<link href="css/teamwork.css" rel="stylesheet" />
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		
+	</head>
+	<body ng-app="application">
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="ViewCtrl">
+			<div class="main container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand">06Lab</a>
+
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="navbar-collapse">
+						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<navbar-right></navbar-right>
+					<li class="create-project">
+						<a ng-click="showProjectDialog(false)"><h4>
+							<span><i class="fa fa-plus-circle fa-lg"></i></span> Create new project</h4>
+						</a>
+					</li>
+				</div>
+			</div>
+		</nav>
 
 
+		<div id="mainview" ng-view></div>
+		
+		<!-- Load Common JavaScripts -->
+		<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>		
+		<script src="js/jquery-ui-1.11.2/jquery-ui.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js"></script>
+		
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<script src="js/bootstrap-3.2.0/ie/ie10-viewport-bug-workaround.js"></script>
 
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-aria.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-resource.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-route.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.4/js/bootstrap-select.min.js"></script>
 
-
-<link href="js/jquery-ui-1.11.2/jquery-ui.min.css" rel="stylesheet" />
-<link href="css/teamwork.css" rel="stylesheet" />
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
-
-<title>06Lab</title>
-</head>
-<body ng-app="application">
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="ViewCtrl">
-	<div class="main container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand">06Lab</a>
-
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="navbar-collapse">
-				<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-			</button>
-		</div>
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<navbar-right></navbar-right>
-		</div>
-	</div>
-	</nav>
-
-
-	<div id="mainview" ng-view></div>
-	
-	<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-
-	
-	
-	<script src="js/jquery-ui-1.11.2/jquery-ui.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js"></script>
-	
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script src="js/bootstrap-3.2.0/ie/ie10-viewport-bug-workaround.js"></script>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-aria.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-resource.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-route.min.js"></script>	
-
-
-
-
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.4/js/bootstrap-select.min.js"></script>
-
-
-
-	<script src="modules/view.js"></script>
-	<script src="modules/rest.js"></script>
-	<script src="modules/navbar.js"></script>
-	<script src="modules/task.js"></script>
-	<script src="modules/tasklists.js"></script>
-	<script src="modules/projects.js"></script>
-	<script src="modules/controls.js"></script>
-	<script src="modules/application.js"></script>
-</body>
+		<!-- Load Custom JavaScripts -->
+		<script src="modules/view.js"></script>
+		<script src="modules/rest.js"></script>
+		<script src="modules/navbar.js"></script>
+		<script src="modules/task.js"></script>
+		<script src="modules/tasklists.js"></script>
+		<script src="modules/projects.js"></script>
+		<script src="modules/controls.js"></script>
+		<script src="modules/application.js"></script>
+	</body>
 </html>

@@ -1,8 +1,8 @@
 (function() {
 	var module = angular.module('projects', [ 'rest', 'view' ]);
 
-	module.controller('ProjectsCtrl', [ '$scope', 'ViewService', 'RestService', '$http', '$routeParams', 'ProjectCreateDialogService',
-			function($scope, ViewService, RestService, $http, $routeParams, ProjectCreateDialogService) {
+	module.controller('ProjectsCtrl', [ '$scope', 'ViewService', 'RestService', '$http', '$filter', '$routeParams', 'ProjectCreateDialogService',
+			function($scope, ViewService, RestService, $http, $filter, $routeParams, ProjectCreateDialogService) {
 				$scope.projects = [];
 				$scope.projectNew = {};
 				$scope.selectedCompanyId = -1;
@@ -15,7 +15,13 @@
 						url : RestService.getUrl('projects.json'),
 						headers : RestService.getHeaders(),
 						data : {}
-					}).success(function(data, status, headers, cfg) {
+					}).success(function(data, status, headers, cfg) {	//modify 2017/4/8 Anton
+						//console.log(data);
+						var temp = data.projects;
+						for (index in temp) {
+							data.projects[index].startDate = getFormattedDate(temp[index].startDate);
+							data.projects[index].endDate = getFormattedDate(temp[index].endDate);
+						}
 						$scope.projects = data.projects;
 						$scope.loading = false;
 					}).error(function(data, status, headers, cfg) {
@@ -23,23 +29,19 @@
 					});
 				};
 
-				$scope.getFormattedDate = function(rawDate) {
+				// modify 2017/04/09 Anton
+				var getFormattedDate = function(rawDate) {
 					if (rawDate == null || rawDate == '') {
 						return 'none';
 					}
-					var jsDate = new Date(rawDate);
-					var dd = jsDate.getDate();
-					if (dd < 10) {
-						dd = '0' + dd;
-					}
-					var mm = jsDate.getMonth()+1;//january is 0. As always
-					if (mm < 10) {
-						mm = '0' + mm
-					}
-					return dd + '.' + mm + '.' + jsDate.getFullYear();
+					var dd = rawDate.substring(6,8);
+					var mm = rawDate.substring(4,6);
+					var yyyy = rawDate.substring(0,4);
+					return yyyy + '.' + mm + '.' + dd;
 				};
-				
-				$scope.parseDate = function(strDate){
+
+				// modify 2017/04/09 Anton
+				var parseDate = function(strDate){					
 					if(strDate == null || strDate==""){
 						return '';
 					}
@@ -49,31 +51,47 @@
 					return yyyy+mm+dd;
 				}
 
-				$scope.saveProject = function() {
+				$scope.saveProject = function(projectNew) {
+					console.log(projectNew);
 					var method = 'POST';
 					var operator = 'projects.json';
 					if ($scope.projectNew.id) {
 						method = 'PUT';
 						operator = 'projects/' + $scope.projectNew.id + '.json';
 					}
-
-					$scope.projectNew.startDate = $scope.parseDate($scope.projectNew.startDateF);
-					$scope.projectNew.endDate = $scope.parseDate($scope.projectNew.endDateF);
-					console.log($scope.projectNew.startDateF+';'+$scope.projectNew.endDateF)
-					console.log($scope.projectNew.startDate+';'+$scope.projectNew.endDate)
+					
+					//$scope.projectNew.startDate = parseDate($scope.projectNew.startDate);					
+					//$scope.projectNew.endDate = parseDate($scope.projectNew.endDate);
+					//console.log($scope.projectNew.startDateF+';'+$scope.projectNew.endDateF)
+					//console.log($scope.projectNew.startDate+';'+$scope.projectNew.endDate)
 					$scope.projectNew["category-id"] = $scope.projectNew.categoryId;
+					
+					// convert date format - 2017/04/09 Anton
+					$scope.projectNew["created-on"] = $filter('date')($scope.projectNew["created-on"], "yyyymmdd");
+					$scope.projectNew["last-changed-on"] = $filter('date')($scope.projectNew["last-changed-on"], "yyyymmdd");
+					//$scope.projectNew["startDate"] = "20150512";//$filter('date')(projectNew.startDate, "yyyymmdd");
+					//$scope.projectNew["endDate"] = "20150512";//$filter('date')(projectNew.endDate, "yyyymmdd");
+					//$scope.projectNew["startDateF"] = "20150512";//$filter('date')(projectNew.startDate, "yyyymmdd");
+					//$scope.projectNew["endDateF"] = "20150512";//$filter('date')(projectNew.endDate, "yyyymmdd");
+					//console.log($scope.projectNew["startDate"]);
+					//console.log($scope.projectNew);
+					$scope.postdata = {};
+					$scope.postdata = $scope.projectNew;
+
 					$http({
 						method : method,
 						url : RestService.getUrl(operator),
 						headers : RestService.getHeaders(),
 						data : {
-							project : $scope.projectNew
+							project : $scope.postdata
 						}
 					}).success(function(data, status, headers, cfg) {
+						console.log(data);
 						$scope.loadProjects();
 						$scope.projectNew = {};
 						ProjectCreateDialogService.hide();
 					}).error(function(data, status, headers, cfg) {
+						//console.log(data);
 					});
 				};
 				
@@ -99,6 +117,7 @@
 						$scope.categoryList = data.categories;
 						
 					}).error(function(data, status, headers, cfg) {
+						
 					});					
 				};
 
@@ -110,7 +129,7 @@
 				$scope.companyFilter = function(cmpId){
 					//$scope.selectedCompanyId = cmpId;
 					//$scope.apply();
-					console.log($scope.selectedCompanyId);
+					//console.log($scope.selectedCompanyId);
 				};
 				
 				$scope.showProjectDialog = function(projectId) {	
@@ -131,8 +150,8 @@
 							$scope.projectNew = data.project;
 							$scope.projectNew.companyId = data.project.company.id;
 							$scope.projectNew.categoryId = data.project.category.id;
-							$scope.projectNew.startDateF = $scope.getFormattedDate(data.project.startDate);
-							$scope.projectNew.endDateF = $scope.getFormattedDate(data.project.endDate);							
+							//$scope.projectNew.startDateF = $scope.getFormattedDate(data.project.startDate);
+							//$scope.projectNew.endDateF = $scope.getFormattedDate(data.project.endDate);							
 							ProjectCreateDialogService.show();
 						}).error(function(data, status, headers, cfg) {
 						});
@@ -172,7 +191,9 @@
 						url : RestService.getUrl('projects/' + project.id + '/' + operator),
 						headers : RestService.getHeaders(),
 					}).success(function(data, status, headers, cfg) {
+
 					}).error(function(data, status, headers, cfg) {
+
 					});
 				};
 

@@ -10,7 +10,7 @@
 				<h4 ng-show="!projectNew.id">New project</h4>
 				<h4 ng-show="projectNew.id">Edit project</h4>
 			</div>
-			<form class="form-horizontal" name="projectForm" novalidate ng-submit="saveProject()">
+			<form class="form-horizontal" name="projectForm" novalidate">
 				<div class="modal-body">
 
 					<fieldset>
@@ -64,12 +64,12 @@
 							<div role="tabpanel" class="tab-pane" id="dates">
 								<ul>
 									<div class="control-group" style="display: inline; margin: 0 10px">
-										<label class="control-label" for="startDate">Start</label> <input class="date-picker form-control" type="text" ng-model="projectNew.startDateF"
-											name="startDate" id="startDate" datepicker style="width: 150px; display: inline;"></input>
+										<label class="control-label" for="startDate">Start</label> <input class="date-picker form-control" type="text" ng-model="projectNew.startDate"
+											  datepicker style="width: 150px; display: inline;"></input>
 									</div>
 									<div class="control-group" style="display: inline; margin: 0 30px">
-										<label class="control-label" for="endDate">End</label> <input class="date-picker form-control" type="text" ng-model="projectNew.endDateF"
-											name="endDate" id="endDate" datepicker style="width: 150px; display: inline;"></input>
+										<label class="control-label" for="endDate">End</label> <input class="date-picker form-control" type="text" ng-model="projectNew.endDate"
+											  datepicker style="width: 150px; display: inline;"></input>
 									</div>
 								</ul>
 							</div>
@@ -79,7 +79,7 @@
 					</div>
 				</div>
 				<div class="modal-footer" style="text-align: left;">
-					<button class="btn btn-success" type="submit">
+					<button class="btn btn-success" ng-click="saveProject(projectNew)">
 						<span ng-show="!projectNew.id">Add project</span> <span ng-show="projectNew.id">Save project</span>
 
 					</button>
