@@ -16,7 +16,6 @@
 						headers : RestService.getHeaders(),
 						data : {}
 					}).success(function(data, status, headers, cfg) {	//modify 2017/4/8 Anton
-						//console.log(data);
 						var temp = data.projects;
 						for (index in temp) {
 							data.projects[index].startDate = getFormattedDate(temp[index].startDate);
@@ -52,29 +51,17 @@
 				}
 
 				$scope.saveProject = function(projectNew) {
-					console.log(projectNew);
 					var method = 'POST';
 					var operator = 'projects.json';
 					if ($scope.projectNew.id) {
 						method = 'PUT';
 						operator = 'projects/' + $scope.projectNew.id + '.json';
 					}
-					
-					//$scope.projectNew.startDate = parseDate($scope.projectNew.startDate);					
-					//$scope.projectNew.endDate = parseDate($scope.projectNew.endDate);
-					//console.log($scope.projectNew.startDateF+';'+$scope.projectNew.endDateF)
-					//console.log($scope.projectNew.startDate+';'+$scope.projectNew.endDate)
 					$scope.projectNew["category-id"] = $scope.projectNew.categoryId;
-					
+
 					// convert date format - 2017/04/09 Anton
 					$scope.projectNew["created-on"] = $filter('date')($scope.projectNew["created-on"], "yyyymmdd");
 					$scope.projectNew["last-changed-on"] = $filter('date')($scope.projectNew["last-changed-on"], "yyyymmdd");
-					//$scope.projectNew["startDate"] = "20150512";//$filter('date')(projectNew.startDate, "yyyymmdd");
-					//$scope.projectNew["endDate"] = "20150512";//$filter('date')(projectNew.endDate, "yyyymmdd");
-					//$scope.projectNew["startDateF"] = "20150512";//$filter('date')(projectNew.startDate, "yyyymmdd");
-					//$scope.projectNew["endDateF"] = "20150512";//$filter('date')(projectNew.endDate, "yyyymmdd");
-					//console.log($scope.projectNew["startDate"]);
-					//console.log($scope.projectNew);
 					$scope.postdata = {};
 					$scope.postdata = $scope.projectNew;
 
@@ -86,12 +73,11 @@
 							project : $scope.postdata
 						}
 					}).success(function(data, status, headers, cfg) {
-						console.log(data);
 						$scope.loadProjects();
 						$scope.projectNew = {};
 						ProjectCreateDialogService.hide();
 					}).error(function(data, status, headers, cfg) {
-						//console.log(data);
+
 					});
 				};
 				
@@ -118,9 +104,8 @@
 						
 					}).error(function(data, status, headers, cfg) {
 						
-					});					
+					});
 				};
-
 				
 				$scope.loadProjects();
 				$scope.loadCompanies();
@@ -149,14 +134,12 @@
 						}).success(function(data, status, headers, cfg) {
 							$scope.projectNew = data.project;
 							$scope.projectNew.companyId = data.project.company.id;
-							$scope.projectNew.categoryId = data.project.category.id;
-							//$scope.projectNew.startDateF = $scope.getFormattedDate(data.project.startDate);
-							//$scope.projectNew.endDateF = $scope.getFormattedDate(data.project.endDate);							
+							$scope.projectNew.categoryId = data.project.category.id;													
 							ProjectCreateDialogService.show();
 						}).error(function(data, status, headers, cfg) {
+							
 						});
 					}
-
 				};
 
 				$scope.closeProjectDialog = function() {
